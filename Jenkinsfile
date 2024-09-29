@@ -1,41 +1,30 @@
+def remote=[:]
+remote.name = 'ec2'
+remote.user = 'ubuntu'
+remote.host = 'ec2-47-129-246-98.ap-southeast-1.compute.amazonaws.com'
+remote.identityFile = '/var/jenkins_home/.ssh/MSI-SERVER.pem'
+remote.allowAnyHosts = true
 pipeline {
     agent any
+    environment {
+        VERD_CRED=credentials('')
+    }
     stages {
-        stage('Build') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
+        stage('Hello') {
+            script {
+
             }
             steps {
-                echo "Hello, sugoii!!, nice to meet you."
+                sshCommand(remote: remote, command: "whoami")
+                sshCommand(remote: remote, command: "env")
+                sshCommand(remote: remote, command: "pwd")
+                sshCommand(remote: remote, command: "which node")
             }
         }
-        stage('Test') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-            }
-            steps {
-                echo "Hello, sugoii!!, nice to meet you."
-            }
-        }
-        stage('Manual Approval') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-            }
-            steps {
-                echo "Hello, sugoii!!, nice to meet you."
-            }
-        }
-        stage('Deploy') {
-            input {
-                message "Should we continue?"
-                ok "Yes, we should."
-            }
-            steps {
-                echo "Hello, sugoii!!, nice to meet you."
-            }
+    }
+    post {
+        always {
+            sleep 5
         }
     }
 }
