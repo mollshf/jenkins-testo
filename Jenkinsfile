@@ -16,7 +16,8 @@ pipeline {
                 sshCommand(remote: remote, command: "source ~/.nvm/nvm.sh && node -v")
                 sshCommand(remote: remote, command: "source ~/.nvm/nvm.sh && npm -v")
                 sshCommand(remote: remote, command: "pwd")
-                sshCommand(remote: remote, sudo: true, command: "which node")
+                sshCommand(remote: remote, command: "nvm -v")
+                sshCommand(remote: remote, command: "which node")
                 sshCommand(remote: remote, command: "set +x")
             }
         }
